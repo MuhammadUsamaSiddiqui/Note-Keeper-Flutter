@@ -93,4 +93,19 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
+
+  // Get the Map List  and convert it into Note List
+  Future<List<Note>> getNoteList() async {
+    var noteMapList = await getNoteMapList(); // get Map List from Database
+    int count = noteMapList.length;
+
+    List<Note> noteList = List<Note>();
+
+    // Loop to create a Note List from Map List
+    for (int i = 0; i < count; i++) {
+      noteList.add(Note.fromMapObject(noteMapList[i]));
+    }
+
+    return noteList;
+  }
 }
